@@ -14,12 +14,12 @@ const pauseAt16 = 500;
 
 let start = null;
 
-// 強い緩急のイージング
+// イージング
 function easeInOutCubic(t) {
   return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
 }
 
-// タイピング風表示関数
+// タイピング表示
 function typeText(text, callback, delay=100) {
   let i = 0;
   const typingTimer = setInterval(() => {
@@ -32,7 +32,7 @@ function typeText(text, callback, delay=100) {
   }, delay);
 }
 
-// フェードアウト関数
+// フェードアウト
 function fadeOut(element, duration, callback) {
   element.style.transition = `opacity ${duration}ms`;
   element.style.opacity = 0;
@@ -42,7 +42,7 @@ function fadeOut(element, duration, callback) {
   }, duration);
 }
 
-// フェードイン関数
+// フェードイン
 function fadeIn(element, duration) {
   element.style.display = 'flex';
   element.style.opacity = 0;
@@ -52,7 +52,7 @@ function fadeIn(element, duration) {
   }, 50);
 }
 
-// カウントアップアニメーション
+// アニメーション
 function animate(timestamp) {
   if (!start) start = timestamp;
   const elapsed = timestamp - start;
@@ -66,13 +66,11 @@ function animate(timestamp) {
   if (progress < 1) {
     requestAnimationFrame(animate);
   } else {
-    // 16で止めてから17にジャンプ
     setTimeout(() => {
       counter.textContent = target;
-      counter.classList.add('pop'); // ポンっと拡大
+      counter.classList.add('pop');
       setTimeout(() => counter.classList.remove('pop'), 300);
 
-      // タイピング開始
       setTimeout(() => {
         typeText('years', () => {
           setTimeout(() => {
@@ -82,7 +80,7 @@ function animate(timestamp) {
                   fadeIn(introDiv, 1000);
                 });
               }, waitAfterTyping);
-            }, 150); // oldの遅めタイピング
+            }, 150);
           }, waitBetweenWords);
         });
       }, waitTimeBeforeTyping);
